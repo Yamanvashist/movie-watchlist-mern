@@ -1,87 +1,98 @@
-import React, { useState } from 'react'
-import { Calendar, Clock } from 'lucide-react';
-import bg from "../assets/bg.jpg"
-import { ArrowRight } from 'lucide-react';
-import avatarlogo from "../assets/avatar3logo.png"
-import avatarCard from "../assets/avatarCard.jpg"
-import avatarTrailer from "../assets/avatarTrailer.mp4"
+import React, { useState } from "react";
+import { Calendar, Clock, ArrowRight } from "lucide-react";
+import bg from "../assets/bg.jpg";
+import avatarlogo from "../assets/avatar3logo.png";
+import avatarCard from "../assets/avatarCard.jpg";
+import avatarTrailer from "../assets/avatarTrailer.mp4";
+import TrendingMovies from '../components/TrendingMovies'
+
 
 const Home = () => {
+  return (
+    <div className="w-full overflow-x-hidden bg-black">
 
-    const [currentImg, setCurrentImg] = useState(avatarCard)
+      {/* HERO SECTION */}
+      <section
+        className="relative flex flex-col pt-40 md:flex-row justify-center items-center 
+                   min-h-screen gap-16 bg-cover bg-center"
+        style={{ backgroundImage: `url(${bg})` }}
+      >
+        <div className="absolute inset-0 bg-linear-to-b from-black/70 via-black/30 to-black/80"></div>
 
-    return (
-        <div
-            className="flex flex-col overflow-hidden pt-40 md:flex-row justify-center items-center h-screen bg-cover bg-center bg-no-repeat gap-16  relative"
-            style={{ backgroundImage: `url(${bg})` }}
-        >
-            <div className="absolute inset-0 bg-linear-to-b from-black/70 via-black/30 to-black/80"></div>
+        {/* LEFT CONTENT */}
+        <div className="relative z-20 flex flex-col items-center gap-3 text-center">
+          <img src={avatarlogo} className="w-150" />
 
-            <div className='flex relative z-20 flex-col justify-center items-center gap-2'>
-                <img src={avatarlogo} className='w-150' />
-                <div className='flex flex-row items-center justify-center gap-4'>
-                    <h1 className='text-white font-sans '>Action | Adventure | Sci-Fi</h1>
-                    <p className='text-white font-sans items-center flex gap-2 '>
-                        <Calendar className='w-5 h-5 text-white' />
-                        2025</p>
-                    <p className='text-white font-sans flex gap-2 '><Clock /> 2h 40m</p>
+          <div className="flex gap-4 text-white items-center">
+            <span>Action | Adventure | Sci-Fi</span>
+            <span className="flex gap-1 items-center">
+              <Calendar className="w-4 h-4" /> 2025
+            </span>
+            <span className="flex gap-1 items-center">
+              <Clock className="w-4 h-4" /> 2h 40m
+            </span>
+          </div>
 
-                </div>
-                <p className='hidden md:text-white text-center   '>Jake Sully, Neytiri, and their family return to Pandora and clash with <br />
-                    a fierce new Ash People tribe born of fire and volcanic rage, testing <br />
-                    alliances, grief, and survival in an epic.</p>
-                <div id='btns' className='flex gap-6 mt-2'>
-                    <button className="px-8 py-4 rounded-full font-semibold text-white 
-                                    bg-linear-to-r from-red-600 via-pink-500 to-red-600 
-                                    shadow-[0_0_15px_3px_rgba(243,12,12,0.8)]
-                                    hover:shadow-[0_0_25px_6px_rgba(255, 11, 11, 1)] hover:scale-105
-                                    transition-all duration-300 cursor-pointer">
-                        Get Started
-                    </button>
+          <p className="hidden md:block text-white max-w-xl">
+            Jake Sully, Neytiri, and their family face a brutal new Ash tribe,
+            testing loyalty, grief, and survival on Pandora.
+          </p>
 
+          <div className="flex gap-6 mt-4">
+            <button className="px-8 py-4 rounded-full font-semibold text-white 
+              bg-linear-to-r from-red-600 via-pink-500 to-red-600
+              shadow-[0_0_15px_rgba(255,0,0,0.7)] hover:scale-105 transition cursor-pointer">
+              Get Started
+            </button>
 
-                    <button className="px-8 py-4 rounded-full font-semibold text-white 
-                                    bg-linear-to-r from-red-600 via-pink-500 to-red-600
-                                    shadow-[0_0_15px_3px_rgba(243,12,12,0.8)]
-                                    hover:shadow-[0_0_25px_6px_rgba(255, 11, 11, 1)] hover:scale-105
-                                    transition-all duration-300 cursor-pointer">
-                        View Watchlist
-                    </button>
-
-
-                </div>
-            </div>
-            <div
-                className="relative border-2 border-white rounded-4xl overflow-hidden 
-             w-100 h-150 transition-transform duration-300 hover:scale-110"
-                onMouseEnter={(e) => e.currentTarget.querySelector("video").play()}
-                onMouseLeave={(e) => {
-                    const video = e.currentTarget.querySelector("video");
-                    video.pause();
-                    video.currentTime = 0;
-                }}
-            >
-                <img
-                    src={avatarCard}
-                    className="w-full h-full object-cover absolute inset-0"
-                />
-
-                <video
-                    src={avatarTrailer}
-                    muted
-                    loop
-                    playsInline
-                    className="w-full h-full object-cover absolute inset-0 opacity-0 hover:opacity-100 transition-opacity duration-300"
-                />
-            </div>
-
-
-            <div>
-
-            </div>
-
+            <button className="px-8 py-4 rounded-full font-semibold text-white 
+              bg-linear-to-r from-red-600 via-pink-500 to-red-600
+              shadow-[0_0_15px_rgba(255,0,0,0.7)] hover:scale-105 transition cursor-pointer">
+              View Watchlist
+            </button>
+          </div>
         </div>
-    )
-}
 
-export default Home
+        {/* RIGHT CARD */}
+        <div
+          className="relative border-2 border-white rounded-4xl overflow-hidden 
+                     w-100 h-150 hover:scale-110 transition"
+          onMouseEnter={(e) => e.currentTarget.querySelector("video").play()}
+          onMouseLeave={(e) => {
+            const video = e.currentTarget.querySelector("video");
+            video.pause();
+            video.currentTime = 0;
+          }}
+        >
+          <img
+            src={avatarCard}
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+
+          <video
+            src={avatarTrailer}
+            muted
+            loop
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover opacity-0 
+                       hover:opacity-100 transition-opacity duration-300"
+          />
+        </div>
+      </section>
+
+      {/* SECOND SECTION */}
+      <section className="py-24 px-6 md:px-20 text-white bg-blue-600/5">
+        <h2 className="text-3xl md:text-4xl font-bold mb-10">
+          Trending Now
+        </h2>
+
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-6">
+          <TrendingMovies></TrendingMovies>
+        </div>
+
+      </section>
+    </div>
+  );
+};
+
+export default Home;
