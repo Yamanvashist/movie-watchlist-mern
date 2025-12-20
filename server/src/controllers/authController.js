@@ -31,4 +31,26 @@ export const register =async(req,res)=>{
     }catch(error){
         return res.json({success:false,message:error.message});
     }
+};
+export const login =async(req,res)=>{
+    const {email,password}=req.body;
+    if(!password || !email){
+        return res.json({success:false,message:"credentials missing"});
+    }
+    try{
+        const existinguser = await userModel.findOne({email});
+        if(!existinguser){
+            return res.json({success:false,message:"user doesnt exist"});
+        }
+        const hashedPassword=await bcrypt.compare(password,existinguser.password);
+        if(!hashedPassword){
+            return res.json({success:false,message:"password is not correct"});
+        }
+        const token = jwt.sign({id:existinguser._id},process.env.JWT_SECRET,{expiresIn:"7d"});
+        res.cookie("token",token,cookieConfig);
+        return res.json({success:true,message:"login donee"});
+
+    }catch(error){
+        return res.json({success:false,message:error.message});
+    }
 }
