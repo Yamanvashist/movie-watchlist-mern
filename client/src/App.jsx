@@ -5,6 +5,9 @@ import TrendingMovies from './components/TrendingMovies'
 import { Routes, Route } from "react-router-dom"
 import SignUp from "./pages/SignUp"
 import MainLayout from './layouts/MainLayout'
+import { Search } from 'lucide-react'
+import SearchMovie from './pages/SearchMovie'
+import Login from './pages/Login'
 
 function App() {
 
@@ -13,9 +16,11 @@ function App() {
     <Routes>
       <Route element={<MainLayout />}>
         <Route path='/' element={<Home />} />
+        <Route path='/search' element={<SearchMovie/>}/>
       </Route>
 
       <Route path='/signup' element={<SignUp />} />
+      <Route path='/login' element={<Login></Login>}/>
 
     </Routes>)
 }

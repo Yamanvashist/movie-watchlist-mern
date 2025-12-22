@@ -9,7 +9,7 @@ import TrendingMovies from '../components/TrendingMovies'
 
 const Home = () => {
   return (
-    <div className="w-full overflow-x-hidden bg-black">
+    <div className="w-full overflow-hidden bg-black">
 
       {/* HERO SECTION */}
       <section
@@ -17,7 +17,7 @@ const Home = () => {
                    min-h-screen gap-16 bg-cover bg-center"
         style={{ backgroundImage: `url(${bg})` }}
       >
-        <div className="absolute inset-0 bg-linear-to-b from-black/70 via-black/30 to-black/80"></div>
+        <div className="absolute inset-0 bg-linear-to-b from-black/70 via-black/30 to-black/90"></div>
 
         {/* LEFT CONTENT */}
         <div className="relative z-20 flex flex-col items-center gap-3 text-center">
@@ -82,6 +82,8 @@ const Home = () => {
 
       {/* SECOND SECTION */}
       <section className="py-24 px-6 md:px-20 text-white bg-blue-600/5">
+
+
         <h2 className="text-3xl md:text-4xl font-bold mb-10">
           Trending Now
         </h2>

@@ -26,7 +26,11 @@ const Navbar = () => {
                 {items.map((list, idx) => (
                     <li
                         key={idx}
-                        onClick={() => setSelected(idx)}
+                        onClick={() => {
+                            setSelected(idx)
+                            navigate(list === "Home" ? "/" : `/${list.toLowerCase()}`)
+
+                        }}
                         className={`cursor-pointer hover:text-pink-400 ${selected === idx ? "text-pink-600" : "text-white"
                             } transition`}
                     >
@@ -35,14 +39,14 @@ const Navbar = () => {
                 ))}
             </ul>
 
-            <div onClick={() => navigate("/signup")} className="hidden lg:flex items-center gap-3">
-                <button className="px-8 py-3 rounded-full font-semibold 
+            <div className="hidden lg:flex items-center gap-3">
+                <button onClick={() => navigate("/signup")} className="px-8 py-3 rounded-full font-semibold 
                bg-linear-to-r from-red-600 via-pink-500 to-red-600 text-white shadow-md shadow-orange-500/30 
                 hover:bg-orange-600 transition-all duration-300 cursor-pointer">
                     Sign Up
                 </button>
 
-                <button className="px-8 py-3 rounded-full font-semibold 
+                <button onClick={() => navigate("/login")} className="px-8 py-3 rounded-full font-semibold 
                 border-2 border-pink-600 text-pink-600 
                 hover:bg-linear-to-r from-red-600 via-pink-500 to-red-600 hover:text-white 
                 transition-all duration-300 cursor-pointer">
@@ -69,7 +73,7 @@ const Navbar = () => {
                         SignUp
                     </button>
 
-                    <button className="w-40 py-2 rounded-full bg-pink-600 text-white font-bold hover:bg-transparent hover:border-orange-500 hover:border-2 hover:text-orange-500 cursor-pointer transition-all duration-300">
+                    <button onClick={() => navigate("/login")} className="w-40 py-2 rounded-full bg-pink-600 text-white font-bold hover:bg-transparent hover:border-orange-500 hover:border-2 hover:text-orange-500 cursor-pointer transition-all duration-300">
                         Login
                     </button>
                 </div>
