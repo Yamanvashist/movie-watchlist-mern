@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Clapperboard } from 'lucide-react';
+
 
 const Navbar = () => {
     const [selected, setSelected] = useState("");
@@ -13,8 +15,8 @@ const Navbar = () => {
         <nav className="w-full fixed top-0 left-0 z-50 flex items-center justify-between px-6 md:px-16 py-4">
 
             {/* Logo */}
-            <h1 className="font-bold text-2xl md:text-3xl text-white drop-shadow-[0_0_4px_rgba(255,100,0,0.8)]">
-                <span className="text-pink-500">Q</span>uickShow
+            <h1 className="font-bold text-2xl md:text-3xl flex text-center items-center justify-center text-white drop-shadow-[0_0_4px_rgba(255,100,0,0.8)]">
+                <span className="text-pink-500">Cine</span>Stack  <Clapperboard className="text-pink-500 h-8 w-8 ml-2"/>
             </h1>
 
             <div className="lg:hidden text-white text-3xl cursor-pointer" onClick={() => setOpen(!open)}>
@@ -61,7 +63,10 @@ const Navbar = () => {
                     {items.map((list, idx) => (
                         <div
                             key={idx}
-                            onClick={() => { setSelected(idx); setOpen(false); }}
+                            onClick={() => {
+                                setSelected(idx); setOpen(false)
+                                navigate(list === "Home" ? "/" : `/${list.toLowerCase()}`)
+                            }}
                             className={`cursor-pointer hover:text-pink-500 text-lg ${selected === idx ? "text-pink-600" : "text-white"
                                 }`}
                         >

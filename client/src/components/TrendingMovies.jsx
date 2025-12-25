@@ -1,103 +1,99 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import axios from "axios";
-import { ArrowRight, Star } from "lucide-react";
+import { Star, ChevronRight, ChevronLeft } from "lucide-react";
 
 const TrendingMovies = () => {
-    const [movies, setMovies] = useState([]);
-    const [page, setPage] = useState(1);
-    const [loading, setLoading] = useState(false);
-    const [slice, setSlice] = useState(10)
-    const [fav, setFav] = useState(false)
+  const [movies, setMovies] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const apiKey = import.meta.env.VITE_TMDB_API_KEY;
+  const scrollRef = useRef(null);
+  const [fav, setFav] = useState({}); // track favorites per movie
 
-    const apiKey = import.meta.env.VITE_TMDB_API_KEY;
+  useEffect(() => {
+    const fetchMovies = async () => {
+      try {
+        setLoading(true);
+        const res = await axios.get(
+          "https://api.themoviedb.org/3/trending/movie/day",
+          { params: { api_key: apiKey } }
+        );
+        setMovies(res.data.results || []);
+      } catch (err) {
+        console.log("Error fetching movies:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchMovies();
+  }, []);
 
-
-    useEffect(() => {
-        const fetchMovies = async () => {
-            try {
-                setLoading(true);
-
-                const res = await axios.get(
-                    "https://api.themoviedb.org/3/trending/movie/day",
-                    {
-                        params: {
-                            api_key: apiKey,
-                            page: page,
-                        },
-                    }
-                );
-
-                if (res.data.results) {
-                    setMovies((prev) => {
-                        const existingId = new Set(prev.map((m) => m.id));
-                        const uniqueNewMovies = res.data.results.filter(
-                            (m) => !existingId.has(m.id)
-                        );
-                        return ([...prev, ...uniqueNewMovies]);
-                    });
-                }
-            } catch (err) {
-                console.log("Error fetching movies:", err);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchMovies();
-    }, [page]);
-
-    const handleClick = () => {
-        setPage((prev) => prev + 1)
-        setSlice((prev) => prev + 10)
+  const scroll = (direction) => {
+    if (scrollRef.current) {
+      const scrollAmount = 300; // px per click
+      if (direction === "left") scrollRef.current.scrollBy({ left: -scrollAmount, behavior: "smooth" });
+      else scrollRef.current.scrollBy({ left: scrollAmount, behavior: "smooth" });
     }
+  };
 
-    return (
-        <>
-            {movies.slice(0, slice).map((movie) => (
-                <div
-                    key={movie.id}
-                    className="bg-gray-800 relative w-66 h-88 flex flex-col p-3 gap-2 rounded-2xl 
-                   hover:scale-105 transition-all duration-300 cursor-pointer"
-                >
-                    <img
-                        className="rounded-lg h-52 w-full object-cover"
-                        src={
-                            movie.poster_path
-                                ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
-                                : "https://via.placeholder.com/300x450?text=No+Poster"
-                        }
-                        alt={movie.title}
-                    />
+  return (
+    <div className="relative">
+      <button
+        onClick={() => scroll("left")}
+        className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-black/50 p-2 rounded-full hover:bg-black/70"
+      >
+        <ChevronLeft className="w-6 h-6 text-white" />
+      </button>
 
-                    <Star onClick={() => setFav(!fav)} className="absolute top-5 right-5 text-white " fill={`${fav ? "yellow" : "transparent"}`} />
+      <div
+        ref={scrollRef}
+        className="flex gap-4 overflow-x-hidden scroll-smooth pb-4"
+      >
+        {movies.map((movie) => (
+          <div
+            key={movie.id}
+            className="bg-gray-800 relative min-w-50 w-52 h-80 flex flex-col p-3 gap-2 rounded-2xl hover:scale-105 transition-all cursor-pointer"
+          >
+            <img
+              className="rounded-lg h-52 w-full object-cover"
+              src={
+                movie.poster_path
+                  ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+                  : "https://via.placeholder.com/300x450?text=No+Poster"
+              }
+              alt={movie.title}
+            />
 
-                    <h1 className="text-white font-bold truncate">{movie.title}</h1>
+            <Star
+              onClick={() => setFav({ ...fav, [movie.id]: !fav[movie.id] })}
+              className="absolute top-3 right-3 text-white"
+              fill={fav[movie.id] ? "yellow" : "transparent"}
+            />
 
-                    <p className="text-gray-400 text-sm">
-                        {movie.release_date?.slice(0, 4)} • ⭐{" "}
-                        {movie.vote_average?.toFixed(1)}
-                    </p>
+           
+            <p className="text-gray-400 text-sm">
+              {movie.release_date?.slice(0, 4)} • ⭐ {movie.vote_average?.toFixed(1)}
+            </p>
 
-                    <div className="flex items-center justify-between mt-auto">
-                        <button className="bg-pink-500 hover:bg-pink-600 transition 
-                               text-white rounded-full font-semibold px-4 py-2 text-sm">
-                            + Watchlist
-                        </button>
-                    </div>
-                </div>
-            ))}
-
-            <button
-                disabled={loading}
-                onClick={handleClick}
-                className="mt-10 flex items-center gap-2 text-pink-400 
-                   hover:text-pink-500 transition disabled:opacity-50"
-            >
-                {loading ? "Loading..." : "Explore More"}
-                <ArrowRight />
+            <button className="bg-pink-500 hover:bg-pink-600 transition text-white rounded-full font-semibold px-4 py-2 text-sm mt-auto">
+              + Watchlist
             </button>
-        </>
-    );
+          </div>
+        ))}
+      </div>
+
+      <button
+        onClick={() => scroll("right")}
+        className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-black/50 p-2 rounded-full hover:bg-black/70"
+      >
+        <ChevronRight className="w-6 h-6 text-white" />
+      </button><button
+        onClick={() => scroll("right")}
+        className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-black/50 p-2 rounded-full hover:bg-black/70"
+      >
+        <ChevronRight className="w-6 h-6 text-white" />
+      </button>
+    </div>
+  );
 };
 
 export default TrendingMovies;

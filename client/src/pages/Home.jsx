@@ -5,6 +5,10 @@ import avatarlogo from "../assets/avatar3logo.png";
 import avatarCard from "../assets/avatarCard.jpg";
 import avatarTrailer from "../assets/avatarTrailer.mp4";
 import TrendingMovies from '../components/TrendingMovies'
+import TopRated from "../components/TopRated"
+import GenreMovies from "../components/GenreMovies";
+
+
 
 
 const Home = () => {
@@ -81,18 +85,42 @@ const Home = () => {
       </section>
 
       {/* SECOND SECTION */}
-      <section className="py-24 px-6 md:px-20 text-white bg-blue-600/5">
+      <section className="py-24 px-6 md:px-20 text-white bg-blue-600/5 flex flex-col gap-8">
+
+        <div>
+
+          <div className="mb-10">
+            <h2 className="text-3xl md:text-4xl font-bold ">
+              Trending Now
+            </h2>
+
+            <p className="text-white/70">Stay updated with what's everyone watching</p>
+
+          </div>
 
 
-        <h2 className="text-3xl md:text-4xl font-bold mb-10">
-          Trending Now
-        </h2>
-
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-6">
           <TrendingMovies></TrendingMovies>
         </div>
 
+        <div>
+
+          <div className="mb-10">
+            <h2 className="text-3xl md:text-4xl font-bold ">
+              Top Rated
+            </h2>
+            <p className="text-white/70">Watch some of the Most Rated Movies</p>
+          </div>
+
+
+          <TopRated />
+        </div>
+
       </section>
+
+      <GenreMovies/>
+
+     
+
     </div>
   );
 };

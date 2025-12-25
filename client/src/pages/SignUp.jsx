@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import signUpbg from "../assets/signUpbg.jpg";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const SignUp = () => {
 
@@ -10,6 +11,19 @@ const SignUp = () => {
 
     const navigate = useNavigate()
 
+    const register = async (e) => {
+        e.preventDefault()
+        if (!name.trim() || !email.trim() || !password.trim()) return alert("Fill all fields");
+
+        const res = await axios.post("http://localhost:4000/api/auth/register", {
+            name,
+            email,
+            password
+        })
+
+        console.log(res.data.message)
+
+    }
 
     return (
         <div className="flex items-center justify-center min-h-screen bg-gray-900">
@@ -58,13 +72,13 @@ const SignUp = () => {
                         className="px-4 py-3 rounded-xl bg-gray-700 text-white outline-none focus:ring-2 focus:ring-pink-500"
                     />
 
-                    <button className="mt-2 bg-pink-500 hover:bg-pink-600 transition text-white font-semibold py-3 rounded-xl cursor-pointer">
+                    <button onClick={register} className="mt-2 bg-pink-500 hover:bg-pink-600 transition text-white font-semibold py-3 rounded-xl cursor-pointer">
                         Sign Up
                     </button>
 
                     <p className="text-gray-400 text-sm">
                         Already have an account?{" "}
-                        <span onClick={()=>navigate("/login")} className="text-pink-400 cursor-pointer hover:underline">
+                        <span onClick={() => navigate("/login")} className="text-pink-400 cursor-pointer hover:underline">
                             Login
                         </span>
                     </p>
