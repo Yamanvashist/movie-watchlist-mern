@@ -1,17 +1,32 @@
-import express from 'express';
+import express from "express";
 import dotenv from "dotenv";
-import connectDB from './config/mongodb.js';
-
+import cors from "cors";
 import cookieParser from "cookie-parser";
-import authrouter from './routes/authRouter.js';
-const app=express();
+
+import connectDB from "./config/mongodb.js";
+import authrouter from "./routes/authRouter.js";
+
 dotenv.config();
+
+const app = express();
+
+app.use(cors({
+    origin:  "http://localhost:5173",
+    credentials: true
+}));
 app.use(express.json());
+app.use(cookieParser());
 
 connectDB();
-app.use(cookieParser());
-app.use("/api/auth",authrouter);
 
-const PORT=process.env.PORT || 4000 ;
+app.use("/api/auth", authrouter);
 
-app.listen(PORT,()=>{console.log(`Server is running at ${PORT}`)});
+app.use((err, req, res, next) => {
+    console.error(err);
+    res.status(500).json({ message: "Internal Server Error" });
+});
+
+const PORT = process.env.PORT || 4000;
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+});
