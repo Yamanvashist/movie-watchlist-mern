@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import loginbg from "../assets/signUpbg.jpg";
 import { useNavigate } from "react-router-dom";
+import { AuthStore } from "../authContext/AuthStore";
 
 const Login = () => {
 
@@ -8,6 +9,20 @@ const Login = () => {
     const [password, setPassword] = useState("")
 
     const navigate = useNavigate()
+    const login = AuthStore((s) => s.login)
+
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        if (!email.trim() || !password.trim()) return alert("Fill all fields");
+
+        try {
+            login({ email, password })
+            navigate("/")
+        } catch (err) {
+            console.log("Register Error")
+        }
+
+    }
 
     return (
         <div className="flex items-center justify-center min-h-screen bg-gray-900">
@@ -30,7 +45,7 @@ const Login = () => {
                     </h1>
 
 
-                  
+
                     <input
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
@@ -49,13 +64,13 @@ const Login = () => {
                         className="px-4 py-3 rounded-xl bg-gray-700 text-white outline-none focus:ring-2 focus:ring-pink-500"
                     />
 
-                    <button className="mt-2 bg-pink-500 hover:bg-pink-600 transition text-white font-semibold py-3 rounded-xl cursor-pointer">
-                        Sign Up
+                    <button onClick={handleSubmit} className="mt-2 bg-pink-500 hover:bg-pink-600 transition text-white font-semibold py-3 rounded-xl cursor-pointer">
+                        Login
                     </button>
 
                     <p className="text-gray-400 text-sm">
                         Don't have any account?{" "}
-                        <span onClick={()=>navigate("/signup")} className="text-pink-400 cursor-pointer hover:underline">
+                        <span onClick={() => navigate("/signup")} className="text-pink-400 cursor-pointer hover:underline">
                             SignUp
                         </span>
                     </p>

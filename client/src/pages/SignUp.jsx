@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import signUpbg from "../assets/signUpbg.jpg";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { AuthStore } from "../authContext/AuthStore";
 
 const SignUp = () => {
 
@@ -11,18 +12,19 @@ const SignUp = () => {
 
     const navigate = useNavigate()
 
-    const register = async (e) => {
+    const register = AuthStore((s) => s.register)
+
+    const handleSubmit = async (e) => {
         e.preventDefault()
         if (!name.trim() || !email.trim() || !password.trim()) return alert("Fill all fields");
 
-        const res = await axios.post("http://localhost:4000/api/auth/register", {
-            name,
-            email,
-            password
-        })
-
-        console.log(res.data.message)
-
+        try{
+        register({name,email,password})
+        navigate("/")
+        }catch (err){
+            console.log("Register Error")
+        }
+    
     }
 
     return (
@@ -72,7 +74,7 @@ const SignUp = () => {
                         className="px-4 py-3 rounded-xl bg-gray-700 text-white outline-none focus:ring-2 focus:ring-pink-500"
                     />
 
-                    <button onClick={register} className="mt-2 bg-pink-500 hover:bg-pink-600 transition text-white font-semibold py-3 rounded-xl cursor-pointer">
+                    <button onClick={handleSubmit} className="mt-2 bg-pink-500 hover:bg-pink-600 transition text-white font-semibold py-3 rounded-xl cursor-pointer">
                         Sign Up
                     </button>
 

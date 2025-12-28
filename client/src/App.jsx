@@ -8,6 +8,8 @@ import MainLayout from './layouts/MainLayout'
 import { Search } from 'lucide-react'
 import SearchMovie from './pages/SearchMovie'
 import Login from './pages/Login'
+import MovieDetail from './pages/MovieDetail'
+
 
 function App() {
 
@@ -17,6 +19,7 @@ function App() {
       <Route element={<MainLayout />}>
         <Route path='/' element={<Home />} />
         <Route path='/search' element={<SearchMovie/>}/>
+        <Route path='/movie/:id' element={<MovieDetail/>}/>
       </Route>
 
       <Route path='/signup' element={<SignUp />} />

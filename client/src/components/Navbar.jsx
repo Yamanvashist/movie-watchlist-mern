@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Clapperboard } from 'lucide-react';
+import { motion } from "framer-motion";
 
 
 const Navbar = () => {
@@ -12,7 +13,13 @@ const Navbar = () => {
     const navigate = useNavigate()
 
     return (
-        <nav className="w-full fixed top-0 left-0 z-50 flex items-center justify-between px-6 md:px-16 py-4">
+        <motion.nav 
+        initial = {{opacity : 0 , y : -100}}
+        animate = {{opacity : 1 , y : 0}}
+        transition = {{duration : 0.8 , delay : 0.3}}
+        
+        
+        className="w-full fixed top-0 left-0 z-50 flex items-center justify-between px-6 md:px-16 py-4">
 
             {/* Logo */}
             <h1 className="font-bold text-2xl md:text-3xl flex text-center items-center justify-center text-white drop-shadow-[0_0_4px_rgba(255,100,0,0.8)]">
@@ -83,7 +90,7 @@ const Navbar = () => {
                     </button>
                 </div>
             )}
-        </nav>
+        </motion.nav>
     );
 };
 

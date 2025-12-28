@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import { Star, ChevronRight, ChevronLeft } from "lucide-react";
+import {useNavigate} from "react-router-dom"
 
 const TrendingMovies = () => {
   const [movies, setMovies] = useState([]);
@@ -8,6 +9,9 @@ const TrendingMovies = () => {
   const apiKey = import.meta.env.VITE_TMDB_API_KEY;
   const scrollRef = useRef(null);
   const [fav, setFav] = useState({}); // track favorites per movie
+  const [watchList, setWatchList] = useState({})
+
+  const navigate = useNavigate()
 
   useEffect(() => {
     const fetchMovies = async () => {
@@ -50,6 +54,7 @@ const TrendingMovies = () => {
       >
         {movies.map((movie) => (
           <div
+          onClick={()=>navigate(`/movie/${movie.id}`)}
             key={movie.id}
             className="bg-gray-800 relative min-w-50 w-52 h-80 flex flex-col p-3 gap-2 rounded-2xl hover:scale-105 transition-all cursor-pointer"
           >
@@ -69,14 +74,26 @@ const TrendingMovies = () => {
               fill={fav[movie.id] ? "yellow" : "transparent"}
             />
 
-           
+
             <p className="text-gray-400 text-sm">
               {movie.release_date?.slice(0, 4)} • ⭐ {movie.vote_average?.toFixed(1)}
             </p>
 
-            <button className="bg-pink-500 hover:bg-pink-600 transition text-white rounded-full font-semibold px-4 py-2 text-sm mt-auto">
-              + Watchlist
+            <button
+              onClick={() => {
+                setWatchList({ ...watchList, [movie.id]: !watchList[movie.id] })
+              }}
+              className={`mt-auto flex items-center justify-center gap-2 px-5 py-2.5 rounded-full 
+font-semibold text-sm transition-all duration-300 cursor-pointer
+${watchList[movie.id]
+                  ? "bg-green-500 text-white border border-green-500/40"
+                  : "bg-pink-500/10 text-pink-400 border border-pink-500/40"
+                }`}
+            >
+              {watchList[movie.id] ? "✓ In Watchlist" : "+ Add to Watchlist"}
             </button>
+
+
           </div>
         ))}
       </div>

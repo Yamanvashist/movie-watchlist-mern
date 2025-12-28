@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react'
 import { useState } from 'react'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 const TopRated = () => {
 
@@ -11,6 +12,8 @@ const TopRated = () => {
     const scrollRef = useRef(null)
 
     const apiKey = import.meta.env.VITE_TMDB_API_KEY;
+
+    const navigate = useNavigate()
 
     useEffect(() => {
         const apiFetch = async () => {
@@ -47,7 +50,7 @@ const TopRated = () => {
             </button>
             <div ref={scrollRef} className='flex gap-4 overflow-x-hidden scroll-smooth pb-4'>
                 {movies.map((movie, idx) => (
-                    <div key={movie.id} className='flex flex-col min-w-50 w-52 h-90 overflow-hidden hover:scale-105 cursor-pointer transition-all duration-300'>
+                    <div onClick={()=>navigate(`/movie/${movie.id}`)} key={movie.id} className='flex flex-col min-w-50 w-52 h-90 overflow-hidden hover:scale-105 cursor-pointer transition-all duration-300'>
                         <img className='object-cover rounded object-center' src={
                             movie.poster_path
                                 ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
