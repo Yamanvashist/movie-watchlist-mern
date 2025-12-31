@@ -25,7 +25,7 @@ export const register =async(req,res)=>{
         await user.save();
         const token = jwt.sign({id:user._id},process.env.JWT_SECRET,{expiresIn:"7d",});
         res.cookie("token",token,cookieConfig);
-        return res.json({success:true,message:"successful"});
+        return res.json({success:true,message:"successful", token, user: {id: user._id, name: user.name, email: user.email}});
         
 
     }catch(error){
@@ -48,9 +48,27 @@ export const login =async(req,res)=>{
         }
         const token = jwt.sign({id:existinguser._id},process.env.JWT_SECRET,{expiresIn:"7d"});
         res.cookie("token",token,cookieConfig);
-        return res.json({success:true,message:"login donee"});
+        return res.json({success:true,message:"login donee", token, user: {id: existinguser._id, name: existinguser.name, email: existinguser.email}});
 
     }catch(error){
         return res.json({success:false,message:error.message});
     }
 }
+
+export const logout =async(req,res)=>{
+    res.clearCookie("token");
+    return res.json({success:true,message:"logged out"});
+};
+
+export const verify =async(req,res)=>{
+    const token = req.cookies.token;
+    if(!token){
+        return res.json({success:false,message:"no token"});
+    }
+    try{
+        const decoded = jwt.verify(token,process.env.JWT_SECRET);
+        return res.json({success:true,userId:decoded.id});
+    }catch(error){
+        return res.json({success:false,message:"invalid token"});
+    }
+};
