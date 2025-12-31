@@ -50,8 +50,8 @@ const TopRated = () => {
             </button>
             <div ref={scrollRef} className='flex gap-4 overflow-x-hidden scroll-smooth pb-4'>
                 {movies.map((movie, idx) => (
-                    <div onClick={()=>navigate(`/movie/${movie.id}`)} key={movie.id} className='flex flex-col min-w-50 w-52 h-90 overflow-hidden hover:scale-105 cursor-pointer transition-all duration-300'>
-                        <img className='object-cover rounded object-center' src={
+                    <div key={movie.id} className='flex flex-col min-w-50 w-52 h-90 overflow-hidden hover:scale-105 cursor-pointer transition-all duration-300'>
+                        <img onClick={()=>navigate(`/movie/${movie.id}`)} className='object-cover rounded object-center' src={
                             movie.poster_path
                                 ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
                                 : "https://via.placeholder.com/300x450?text=No+Poster"

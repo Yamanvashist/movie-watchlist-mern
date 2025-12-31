@@ -54,11 +54,10 @@ const TrendingMovies = () => {
       >
         {movies.map((movie) => (
           <div
-          onClick={()=>navigate(`/movie/${movie.id}`)}
             key={movie.id}
             className="bg-gray-800 relative min-w-50 w-52 h-80 flex flex-col p-3 gap-2 rounded-2xl hover:scale-105 transition-all cursor-pointer"
           >
-            <img
+            <img onClick={()=>navigate(`/movie/${movie.id}`)}
               className="rounded-lg h-52 w-full object-cover"
               src={
                 movie.poster_path

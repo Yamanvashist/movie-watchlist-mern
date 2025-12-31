@@ -115,7 +115,7 @@ const Home = () => {
           animate={{ opacity: 1, scale: 1  }}
           transition={{ duration: 1, delay: 0.3 }}
           className="relative z-20 border-2 border-white rounded-4xl overflow-hidden 
-                     w-100 h-150 cursor-pointer"
+                     w-100 h-150 cursor-pointer "
           onMouseEnter={(e) => e.currentTarget.querySelector("video").play()}
           onMouseLeave={(e) => {
             const video = e.currentTarget.querySelector("video");

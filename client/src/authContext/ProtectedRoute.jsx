@@ -9,9 +9,9 @@ const ProtectedRoute = ({ children }) => {
     const loading = AuthStore((s) => s.loading)
 
     if (loading) return <div>Loading...</div>;
-    if (!user) navigate("signup");
+    if (!user) navigate("/signup");
     return children;
-    
+
 }
 
 export default ProtectedRoute
