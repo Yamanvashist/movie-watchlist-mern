@@ -54,12 +54,10 @@ const GenreMovies = () => {
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
 
-        {/* Title */}
         <h1 className="text-white text-3xl font-bold mb-6">
           Browse by Genre
         </h1>
 
-        {/* Genre Chips */}
         <div className="flex flex-wrap gap-3 mb-10 ">
           {Genres.map((genre) => (
             <button
@@ -76,14 +74,12 @@ const GenreMovies = () => {
           ))}
         </div>
 
-        {/* Movies Grid */}
         <div className="grid gap-8 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
           {movies.slice(0, 10).map((movie) => (
             <div onClick={() => navigate(`/movie/${movie.id}`)}
               key={movie.id}
               className="group cursor-pointer"
             >
-              {/* Poster */}
               <div className="relative overflow-hidden rounded-xl">
                 <img
                   src={
@@ -95,11 +91,9 @@ const GenreMovies = () => {
                   className="h-85 w-full object-cover transition-transform duration-300 group-hover:scale-110"
                 />
 
-                {/* Hover Overlay */}
                 <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition" />
               </div>
 
-              {/* Info */}
               <div className="mt-3 space-y-1">
                 <h2 className="text-white text-sm font-semibold truncate">
                   {movie.title}

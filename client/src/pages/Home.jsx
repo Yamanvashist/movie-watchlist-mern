@@ -12,7 +12,6 @@ import TrendingMovies from "../components/TrendingMovies";
 import TopRated from "../components/TopRated";
 import GenreMovies from "../components/GenreMovies";
 
-/* ---------------- ANIMATION VARIANTS ---------------- */
 
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
@@ -33,7 +32,6 @@ const scaleHover = {
   whileTap: { scale: 0.95 },
 };
 
-/* ---------------- COMPONENT ---------------- */
 
 const Home = () => {
   const navigate = useNavigate();

@@ -24,7 +24,7 @@ const MovieDetail = () => {
 
                 <div className="w-14 h-14 border-4 border-white/20 border-t-red-600 rounded-full animate-spin mb-6"></div>
 
-                
+
                 <p className="text-lg tracking-wide text-gray-300">
                     Fetching movie magic 🍿
                 </p>

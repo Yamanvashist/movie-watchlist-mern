@@ -63,7 +63,6 @@ const SearchMovie = () => {
 
 
 
-            {/* HERO */}
             <section className="relative min-h-screen pb-8 md:pb-16  flex flex-col justify-center items-center gap-4 md:gap-6 overflow-hidden bg-cover bg-no-repeat p-4 md:p-6" style={{ backgroundImage: `url(${searchBg})` }}>
                 <Snowfall
                     color="#82C3D9"
@@ -84,7 +83,6 @@ const SearchMovie = () => {
                         </p>
                     </div>
 
-                    {/* SEARCH */}
                     <form
                         onSubmit={handleSearch}
                         className="w-full flex justify-center px-4 relative z-20"
@@ -142,7 +140,6 @@ const SearchMovie = () => {
                         </motion.div>
                     )}
 
-                    {/* RESULTS COUNT */}
                     <div className="text-center px-4">
                         {movies.length > 0 ? (
                             <h1 className="text-pink-500 text-lg md:text-xl">
@@ -155,7 +152,6 @@ const SearchMovie = () => {
                         )}
                     </div>
 
-                    {/* MOVIE GRID */}
                     <div className="w-full px-4 md:px-6 lg:px-8">
                         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-4 lg:gap-6 max-w-7xl mx-auto">
                             {movies.slice(0, slice).map((movie) => (
@@ -175,7 +171,6 @@ const SearchMovie = () => {
                                     className="bg-gray-800 rounded-xl md:rounded-2xl p-2 md:p-3 flex flex-col gap-2 md:gap-3
              cursor-pointer relative overflow-hidden"
                                 >
-                                    {/* POSTER */}
                                     <motion.img
                                         whileHover={{ scale: 1.1 }}
                                         transition={{ duration: 0.2 }}
@@ -188,7 +183,6 @@ const SearchMovie = () => {
                                         alt={movie.title}
                                     />
 
-                                    {/* STAR */}
                                     <motion.div
                                         whileHover={{ scale: 1.2, rotate: 10 }}
                                         whileTap={{ scale: 0.85 }}
@@ -201,17 +195,15 @@ const SearchMovie = () => {
                                         />
                                     </motion.div>
 
-                                    {/* TITLE */}
                                     <h3 className="font-bold truncate text-sm md:text-base">
                                         {movie.title}
                                     </h3>
 
-                                    {/* META */}
                                     <p className="text-xs md:text-sm text-gray-400">
                                         {movie.release_date?.slice(0, 4)} • ⭐ {movie.vote_average?.toFixed(1)}
                                     </p>
 
-                                    {/* BUTTON */}
+                                  
                                     <motion.button
                                         whileHover={{ scale: 1.05 }}
                                         whileTap={{ scale: 0.92 }}

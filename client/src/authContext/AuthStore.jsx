@@ -8,7 +8,7 @@ export const AuthStore = create((set) => ({
     loading: false,
     error: null,
 
-    register: async ({name, email, password}) => {
+    register: async ({ name, email, password }) => {
         try {
             set({ loading: true })
             const { data } = await axios.post("http://localhost:4000/api/auth/register", {
@@ -16,25 +16,37 @@ export const AuthStore = create((set) => ({
                 email,
                 password
             }, { withCredentials: true })
-            set({ user: data.user, loading: false })
-            console.log(data)
+            set({ user: data.user, loading: false, error: data })
+            return data
         } catch (err) {
-            set({ user: null, loading: false })
+            set({ user: null, loading: false, error: null })
         }
     },
 
-     login: async ({email, password}) => {
+    login: async ({ email, password }) => {
         try {
             set({ loading: true })
-            const { data } = await axios.post("http://localhost:4000/api/auth/register", {
+            const { data } = await axios.post("http://localhost:4000/api/auth/login", {
                 email,
                 password
             }, { withCredentials: true })
-            set({ user: data.user, loading: false })
+            set({ user: data.user, loading: false, error: data })
+            return data
+        } catch (err) {
+            set({ user: null, loading: false, error: null })
+        }
+    },
+
+    logout: async () => {
+        try {
+            set({ loading: true })
+            const { data } = await axios.post("http://localhost:4000/api/auth/logout", {}, { withCredentials: true })
+            set({ user: null, loading: false })
             console.log(data)
         } catch (err) {
             set({ user: null, loading: false })
         }
     }
+
 
 }))

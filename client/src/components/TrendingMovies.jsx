@@ -33,7 +33,7 @@ const TrendingMovies = () => {
 
   const scroll = (direction) => {
     if (scrollRef.current) {
-      const scrollAmount = 300; // px per click
+      const scrollAmount = 300; 
       if (direction === "left") scrollRef.current.scrollBy({ left: -scrollAmount, behavior: "smooth" });
       else scrollRef.current.scrollBy({ left: scrollAmount, behavior: "smooth" });
     }

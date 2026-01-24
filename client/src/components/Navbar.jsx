@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Clapperboard } from 'lucide-react';
 import { motion } from "framer-motion";
+import { AuthStore } from "../authContext/AuthStore";
 
 
 const Navbar = () => {
@@ -9,21 +10,28 @@ const Navbar = () => {
     const [open, setOpen] = useState(false);
 
     const items = ["Home", "Search", "Favourites", "Watchlist"];
+    const user = AuthStore((s) => s.user)
+    const logout = AuthStore((s) => s.logout)
+
 
     const navigate = useNavigate()
 
+    const handleLogout = async () => {
+        await logout()
+    }
+
     return (
-        <motion.nav 
-        initial = {{opacity : 0 , y : -100}}
-        animate = {{opacity : 1 , y : 0}}
-        transition = {{duration : 0.8 , delay : 0.3}}
-        
-        
-        className="w-full fixed top-0 left-0 z-50 flex items-center justify-between px-6 md:px-16 py-4">
+        <motion.nav
+            initial={{ opacity: 0, y: -100 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+
+
+            className="w-full fixed top-0 left-0 z-50 flex items-center justify-between px-6 md:px-16 py-4">
 
             {/* Logo */}
             <h1 className="font-bold text-2xl md:text-3xl flex text-center items-center justify-center text-white drop-shadow-[0_0_4px_rgba(255,100,0,0.8)]">
-                <span className="text-pink-500">Cine</span>Stack  <Clapperboard className="text-pink-500 h-8 w-8 ml-2"/>
+                <span className="text-pink-500">Cine</span>Stack  <Clapperboard className="text-pink-500 h-8 w-8 ml-2" />
             </h1>
 
             <div className="lg:hidden text-white text-3xl cursor-pointer" onClick={() => setOpen(!open)}>
@@ -47,22 +55,58 @@ const Navbar = () => {
                     </li>
                 ))}
             </ul>
+            {user ? (
+                <div className="flex items-center gap-4">
 
-            <div className="hidden lg:flex items-center gap-3">
-                <button onClick={() => navigate("/signup")} className="px-8 py-3 rounded-full font-semibold 
-               bg-linear-to-r from-red-600 via-pink-500 to-red-600 text-white shadow-md shadow-orange-500/30 
-                hover:bg-orange-600 transition-all duration-300 cursor-pointer">
-                    Sign Up
-                </button>
+                    <div className="flex items-center gap-2 px-6 py-2.5 rounded-full 
+  bg-white/10 backdrop-blur-md border border-white/20
+  shadow-lg shadow-black/20">
 
-                <button onClick={() => navigate("/login")} className="px-8 py-3 rounded-full font-semibold 
-                border-2 border-pink-600 text-pink-600 
-                hover:bg-linear-to-r from-red-600 via-pink-500 to-red-600 hover:text-white 
-                transition-all duration-300 cursor-pointer">
-                    Login
-                </button>
+                        <div className="w-8 h-8 flex items-center justify-center rounded-full 
+    bg-linear-to-r from-pink-500 to-red-500 text-white font-bold text-sm">
+                            {user.name.charAt(0).toUpperCase()}
+                        </div>
 
-            </div>
+                        <span className="text-white font-medium">
+                            {user.name}
+                        </span>
+                    </div>
+
+                    <button
+                        onClick={handleLogout}
+                        className="px-8 py-3 rounded-full font-semibold 
+        bg-white text-black shadow-md shadow-white/40 
+        hover:bg-white/80 transition-all duration-300 cursor-pointer"
+                    >
+                        Logout
+                    </button>
+
+                </div>
+            ) : (
+                <div className="hidden lg:flex items-center gap-3">
+                    <button
+                        onClick={() => navigate("/signup")}
+                        className="px-8 py-3 rounded-full font-semibold 
+        bg-linear-to-r from-red-600 via-pink-500 to-red-600 text-white 
+        shadow-md shadow-orange-500/30 
+        hover:bg-orange-600 transition-all duration-300 cursor-pointer"
+                    >
+                        Sign Up
+                    </button>
+
+                    <button
+                        onClick={() => navigate("/login")}
+                        className="px-8 py-3 rounded-full font-semibold 
+        border-2 border-pink-600 text-pink-600 
+        hover:bg-linear-to-r from-red-600 via-pink-500 to-red-600 hover:text-white 
+        transition-all duration-300 cursor-pointer"
+                    >
+                        Login
+                    </button>
+                </div>
+            )}
+
+
 
             {/* Mobile Dropdown */}
             {open && (

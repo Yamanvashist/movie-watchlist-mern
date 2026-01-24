@@ -9,6 +9,7 @@ import { Search } from 'lucide-react'
 import SearchMovie from './pages/SearchMovie'
 import Login from './pages/Login'
 import MovieDetail from './pages/MovieDetail'
+import { WatchList } from './pages/WatchList'
 
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
         <Route path='/' element={<Home />} />
         <Route path='/search' element={<SearchMovie/>}/>
         <Route path='/movie/:id' element={<MovieDetail/>}/>
+        <Route path='/watchlist' element={<WatchList/>}/>
       </Route>
 
       <Route path='/signup' element={<SignUp />} />
