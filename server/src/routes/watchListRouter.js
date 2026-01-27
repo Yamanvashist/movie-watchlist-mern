@@ -6,6 +6,6 @@ const router =express.Router();
 
 router.post("/",authMiddleware,addWatchList);
 router.get("/",authMiddleware,getWatchList);
-router.delete("/",authMiddleware,deleteWatchList);
+router.delete("/:movieId",authMiddleware,deleteWatchList);
 
 export default router;
