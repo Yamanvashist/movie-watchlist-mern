@@ -67,7 +67,11 @@ export const verify =async(req,res)=>{
     }
     try{
         const decoded = jwt.verify(token,process.env.JWT_SECRET);
-        return res.json({success:true,userId:decoded.id});
+        const user=await userModel.findById(decoded.id).select("_id name email");
+        if(!user){
+            return res.json({success:false,message:"user not found"});
+        }
+        return res.json({success:true,user:{id:user._id,name:user.name,email:user.email},});
     }catch(error){
         return res.json({success:false,message:"invalid token"});
     }
