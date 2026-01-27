@@ -72,6 +72,29 @@ const MovieDetail = () => {
     }
   };
 
+  const fetchTrailer = async () => {
+    const res = await axios.get(
+      `https://api.themoviedb.org/3/movie/${id}/videos`,
+      {
+        params: { api_key: API_KEY }
+      }
+    );
+
+    const trailer = res.data.results.find(
+      v => v.type === "Trailer" && v.site === "YouTube"
+    );
+
+    if (trailer) {
+      window.open(
+        `https://www.youtube.com/watch?v=${trailer.key}`,
+        "_blank"
+      );
+    } else {
+      alert("No trailer found ");
+    }
+  };
+
+
   return (
     <div
       className="min-h-screen bg-cover bg-center flex items-center justify-center"
@@ -113,17 +136,16 @@ const MovieDetail = () => {
           </p>
 
           <div className="mt-8 flex gap-4">
-            <button className="px-6 py-3 rounded-xl bg-red-600 hover:bg-red-700 transition font-semibold">
+            <button onClick={fetchTrailer} className="px-6 py-3 rounded-xl bg-red-600 hover:bg-red-700 transition font-semibold">
               Watch Trailer
             </button>
 
             <button
               onClick={handleWatchlist}
               className={`px-6 py-3 rounded-xl font-semibold transition cursor-pointer
-                ${
-                  inWatchlist
-                    ? "bg-green-500/20 text-green-400 border border-green-500/40"
-                    : "bg-white/10 hover:bg-white/20"
+                ${inWatchlist
+                  ? "bg-green-500/20 text-green-400 border border-green-500/40"
+                  : "bg-white/10 hover:bg-white/20"
                 }`}
             >
               {inWatchlist ? "✓ In Watchlist" : "+ Add to Watchlist"}

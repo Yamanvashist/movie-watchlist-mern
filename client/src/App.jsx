@@ -29,7 +29,7 @@ function App() {
         <Route path='/search' element={<SearchMovie />} />
         <Route path='/movie/:id' element={<MovieDetail />} />
         <Route path='/watchlist' element={<ProtectedRoute><WatchList /></ProtectedRoute>} />
-        <Route path="/favourites" element={<ProtectedRoute><Favourite/></ProtectedRoute>} />
+        <Route path="/favourites" element={<ProtectedRoute><Favourite /></ProtectedRoute>} />
       </Route>
 
       <Route path='/signup' element={<SignUp />} />

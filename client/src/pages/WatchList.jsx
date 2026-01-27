@@ -68,10 +68,10 @@ export const WatchList = () => {
                 <div className="mb-12">
                     <div className="flex items-center gap-3 mb-4">
                         <div className="relative">
-                            <Bookmark className="text-blue-400 w-10 h-10" fill="currentColor" />
+                            <Bookmark className="text-red-400 w-10 h-10" fill="currentColor" />
                             <div className="absolute inset-0 blur-xl bg-blue-400/30" />
                         </div>
-                        <h1 className="text-4xl md:text-5xl font-bold bg-linear-to-r from-white via-blue-100 to-blue-400 bg-clip-text text-transparent">
+                        <h1 className="text-4xl md:text-5xl font-bold bg-linear-to-r text-white">
                             Your Watchlist
                         </h1>
                     </div>

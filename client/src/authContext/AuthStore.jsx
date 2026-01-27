@@ -53,7 +53,9 @@ export const AuthStore = create((set) => ({
             set({ loading: true });
 
             const { data } = await axios.get(
-                "http://localhost:4000/api/auth/verify"
+                "http://localhost:4000/api/auth/verify", {
+                withCredentials: true
+            }
             );
 
             set({ user: data.user, loading: false });

@@ -65,7 +65,7 @@ const Navbar = () => {
             {user ? (
                 <div className="hidden lg:flex items-center gap-3 xl:gap-4">
                     <div className="flex items-center gap-2 px-4 xl:px-6 py-2.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 shadow-lg shadow-black/20">
-                        <div className="w-8 h-8 flex items-center justify-center rounded-full bg-gradient-to-r from-pink-500 to-red-500 text-white font-bold text-sm">
+                        <div className="w-8 h-8 flex items-center justify-center rounded-full bg-linear-to-r from-pink-500 to-red-500 text-white font-bold text-sm">
                             {user.name.charAt(0).toUpperCase()}
                         </div>
                         <span className="text-white font-medium text-sm xl:text-base">
@@ -84,14 +84,14 @@ const Navbar = () => {
                 <div className="hidden lg:flex items-center gap-3">
                     <button
                         onClick={() => navigate("/signup")}
-                        className="px-6 xl:px-8 py-2.5 xl:py-3 rounded-full font-semibold bg-gradient-to-r from-red-600 via-pink-500 to-red-600 text-white shadow-md shadow-orange-500/30 hover:shadow-orange-500/50 transition-all duration-300 cursor-pointer text-sm xl:text-base"
+                        className="px-6 xl:px-8 py-2.5 xl:py-3 rounded-full font-semibold bg-linear-to-r from-red-600 via-pink-500 to-red-600 text-white shadow-md shadow-orange-500/30 hover:shadow-orange-500/50 transition-all duration-300 cursor-pointer text-sm xl:text-base"
                     >
                         Sign Up
                     </button>
 
                     <button
                         onClick={() => navigate("/login")}
-                        className="px-6 xl:px-8 py-2.5 xl:py-3 rounded-full font-semibold border-2 border-pink-600 text-pink-600 hover:bg-gradient-to-r hover:from-red-600 hover:via-pink-500 hover:to-red-600 hover:text-white hover:border-transparent transition-all duration-300 cursor-pointer text-sm xl:text-base"
+                        className="px-6 xl:px-8 py-2.5 xl:py-3 rounded-full font-semibold border-2 border-pink-600 text-pink-600 hover:bg-linear-to-r hover:from-red-600 hover:via-pink-500 hover:to-red-600 hover:text-white hover:border-transparent transition-all duration-300 cursor-pointer text-sm xl:text-base"
                     >
                         Login
                     </button>
@@ -128,7 +128,7 @@ const Navbar = () => {
                         {user ? (
                             <div className="flex flex-col items-center gap-4 mt-4 w-full px-6">
                                 <div className="flex items-center gap-2 px-6 py-2.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 shadow-lg">
-                                    <div className="w-8 h-8 flex items-center justify-center rounded-full bg-gradient-to-r from-pink-500 to-red-500 text-white font-bold text-sm">
+                                    <div className="w-8 h-8 flex items-center justify-center rounded-full bg-linear-to-r from-pink-500 to-red-500 text-white font-bold text-sm">
                                         {user.name.charAt(0).toUpperCase()}
                                     </div>
                                     <span className="text-white font-medium">
@@ -150,7 +150,7 @@ const Navbar = () => {
                                         navigate("/signup");
                                         setOpen(false);
                                     }}
-                                    className="w-full sm:w-40 py-3 rounded-full bg-gradient-to-r from-red-600 via-pink-500 to-red-600 text-white font-bold hover:shadow-lg hover:shadow-pink-500/50 transition-all duration-300"
+                                    className="w-full sm:w-40 py-3 rounded-full bg-linear-to-r from-red-600 via-pink-500 to-red-600 text-white font-bold hover:shadow-lg hover:shadow-pink-500/50 transition-all duration-300"
                                 >
                                     Sign Up
                                 </button>
@@ -160,7 +160,7 @@ const Navbar = () => {
                                         navigate("/login");
                                         setOpen(false);
                                     }}
-                                    className="w-full sm:w-40 py-3 rounded-full border-2 border-pink-600 text-pink-600 font-bold hover:bg-gradient-to-r hover:from-red-600 hover:via-pink-500 hover:to-red-600 hover:text-white hover:border-transparent transition-all duration-300"
+                                    className="w-full sm:w-40 py-3 rounded-full border-2 border-pink-600 text-pink-600 font-bold hover:bg-linear-to-r hover:from-red-600 hover:via-pink-500 hover:to-red-600 hover:text-white hover:border-transparent transition-all duration-300"
                                 >
                                     Login
                                 </button>
