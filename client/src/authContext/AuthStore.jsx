@@ -5,7 +5,7 @@ import axios from "axios"
 
 export const AuthStore = create((set) => ({
     user: null,
-    loading: false,
+    loading: true,
     error: null,
 
     register: async ({ name, email, password }) => {
@@ -46,7 +46,21 @@ export const AuthStore = create((set) => ({
         } catch (err) {
             set({ user: null, loading: false })
         }
-    }
+    },
+
+    checkAuth: async () => {
+        try {
+            set({ loading: true });
+
+            const { data } = await axios.get(
+                "http://localhost:4000/api/auth/verify"
+            );
+
+            set({ user: data.user, loading: false });
+        } catch {
+            set({ user: null, loading: false });
+        }
+    },
 
 
 }))

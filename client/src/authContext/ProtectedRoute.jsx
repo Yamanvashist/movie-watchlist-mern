@@ -1,17 +1,22 @@
-import { AuthStore } from "./AuthStore"
-import { useNavigate } from "react-router-dom"
+import { Navigate } from "react-router-dom";
+import { AuthStore } from "./AuthStore";
 
 const ProtectedRoute = ({ children }) => {
+    const { user, loading } = AuthStore();
 
-    const navigate = useNavigate()
+    if (loading) {
+        return (
+            <div className="h-screen flex items-center justify-center">
+                Loading...
+            </div>
+        );
+    }
 
-    const user = AuthStore((s) => s.user)
-    const loading = AuthStore((s) => s.loading)
+    if (!user) {
+        return <Navigate to="/login" replace />;
+    }
 
-    if (loading) return <div>Loading...</div>;
-    if (!user) navigate("/signup");
     return children;
+};
 
-}
-
-export default ProtectedRoute
+export default ProtectedRoute;

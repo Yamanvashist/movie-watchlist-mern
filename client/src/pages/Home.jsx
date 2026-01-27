@@ -11,6 +11,7 @@ import avatarTrailer from "../assets/avatarTrailer.mp4";
 import TrendingMovies from "../components/TrendingMovies";
 import TopRated from "../components/TopRated";
 import GenreMovies from "../components/GenreMovies";
+import Footer from "../components/Footer";
 
 
 const fadeUp = {
@@ -174,7 +175,7 @@ const Home = () => {
       >
         <GenreMovies />
       </motion.div>
-
+      <Footer/>
     </div>
   );
 };
