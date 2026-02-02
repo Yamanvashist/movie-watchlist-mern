@@ -1,6 +1,8 @@
 import { create } from "zustand";
 import axios from "axios";
 
+axios.defaults.baseURL = "https://movie-watchlist-zu6o.onrender.com/"
+
 export const useWatchlistStore = create((set) => ({
   loading: false,
   watchList: [],
@@ -10,7 +12,7 @@ export const useWatchlistStore = create((set) => ({
     try {
       set({ loading: true });
       const { data } = await axios.get(
-        "http://localhost:4000/api/watchlist",
+        "/api/watchlist",
         { withCredentials: true }
       );
       set({ watchList: data, loading: false });
@@ -23,7 +25,7 @@ export const useWatchlistStore = create((set) => ({
     try {
        set({loading : true})
       const { data } = await axios.post(
-        "http://localhost:4000/api/watchlist",
+        "/api/watchlist",
         { movieId, title, poster },
         { withCredentials: true }
       );
@@ -38,7 +40,7 @@ export const useWatchlistStore = create((set) => ({
     try {
       set({loading : true})
       const { data } = await axios.delete(
-        `http://localhost:4000/api/watchlist/${movieId}`,
+        `/api/watchlist/${movieId}`,
         { withCredentials: true }
       );
       set({ watchList: data , loading : false });

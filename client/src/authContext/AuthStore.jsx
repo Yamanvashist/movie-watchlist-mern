@@ -1,7 +1,7 @@
 import { create } from "zustand"
 import axios from "axios"
 
-
+axios.defaults.baseURL = "https://movie-watchlist-zu6o.onrender.com/"
 
 export const AuthStore = create((set) => ({
     user: null,
@@ -11,7 +11,7 @@ export const AuthStore = create((set) => ({
     register: async ({ name, email, password }) => {
         try {
             set({ loading: true })
-            const { data } = await axios.post("http://localhost:4000/api/auth/register", {
+            const { data } = await axios.post("/api/auth/register", {
                 name,
                 email,
                 password
@@ -26,7 +26,7 @@ export const AuthStore = create((set) => ({
     login: async ({ email, password }) => {
         try {
             set({ loading: true })
-            const { data } = await axios.post("http://localhost:4000/api/auth/login", {
+            const { data } = await axios.post("/api/auth/login", {
                 email,
                 password
             }, { withCredentials: true })
@@ -40,7 +40,7 @@ export const AuthStore = create((set) => ({
     logout: async () => {
         try {
             set({ loading: true })
-            const { data } = await axios.post("http://localhost:4000/api/auth/logout", {}, { withCredentials: true })
+            const { data } = await axios.post("/api/auth/logout", {}, { withCredentials: true })
             set({ user: null, loading: false })
             console.log(data)
         } catch (err) {
@@ -53,7 +53,7 @@ export const AuthStore = create((set) => ({
             set({ loading: true });
 
             const { data } = await axios.get(
-                "http://localhost:4000/api/auth/verify", {
+                "/api/auth/verify", {
                 withCredentials: true
             }
             );

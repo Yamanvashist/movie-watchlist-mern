@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import axios from "axios";
 
+axios.defaults.baseURL = "https://movie-watchlist-zu6o.onrender.com/"
 
 
 export const useFavouriteStore = create((set, get) => ({
@@ -11,7 +12,7 @@ export const useFavouriteStore = create((set, get) => ({
     fetchFavourite: async () => {
         try {
             set({ loading: true })
-            const { data } = await axios.get("http://localhost:4000/api/favourites", {
+            const { data } = await axios.get("/api/favourites", {
                 withCredentials: true
             })
             set({ loading: false, favourites: data })
@@ -23,7 +24,7 @@ export const useFavouriteStore = create((set, get) => ({
     addToFavourite: async (movieId, title, poster) => {
         try {
             set({ loading: true })
-            const { data } = await axios.post("http://localhost:4000/api/favourites", {
+            const { data } = await axios.post("/api/favourites", {
                 movieId, title, poster
             }, {
                 withCredentials: true
@@ -38,7 +39,7 @@ export const useFavouriteStore = create((set, get) => ({
     removeFromFavourite: async (movieId) => {
         try {
             set({ loading: true })
-            const { data } = await axios.delete(`http://localhost:4000/api/favourites/${movieId}`, {
+            const { data } = await axios.delete(`/api/favourites/${movieId}`, {
                 withCredentials: true
             })
             set({ loading: false, favourites: data })
