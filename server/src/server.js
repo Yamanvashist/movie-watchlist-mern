@@ -12,18 +12,26 @@ dotenv.config();
 
 const app = express();
 
+const allowedOrigins = [
+    process.env.NODE_ENV === "production"
+        ? "https://cinestack-eta.vercel.app"
+        : "http://localhost:5173"
+];
+
 app.use(cors({
-    origin:  "http://localhost:5173",
+    origin: allowedOrigins,
     credentials: true
 }));
+
+
 app.use(express.json());
 app.use(cookieParser());
 
 connectDB();
 
 app.use("/api/auth", authrouter);
-app.use("/api/test",testRouter);
-app.use("/api/watchList",watchListRouter);
+app.use("/api/test", testRouter);
+app.use("/api/watchList", watchListRouter);
 app.use("/api/favourites", favouritesRouter);
 
 app.use((err, req, res, next) => {
