@@ -4,8 +4,14 @@
 
 ---
 
-- **Harsh Raaz** – Backend & Deployment Support  
+- ## 👥 Contributors
+
+- **Yamanvashist**  
+  GitHub: https://github.com/Yamanvashist
+
+- **Harsh-raaz**  
   GitHub: https://github.com/Harsh-raaz
+
 
 ## Overview
 
