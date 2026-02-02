@@ -12,16 +12,15 @@ dotenv.config();
 
 const app = express();
 
-const allowedOrigins = [
-    process.env.NODE_ENV === "production"
-        ? "https://cinestack-eta.vercel.app"
-        : "http://localhost:5173"
-];
+const allowedOrigins = process.env.NODE_ENV === "production"
+    ? "https://cinestack-eta.vercel.app"
+    : "http://localhost:5173";
 
 app.use(cors({
     origin: allowedOrigins,
-    credentials: true
+    credentials: true,
 }));
+
 
 
 app.use(express.json());
