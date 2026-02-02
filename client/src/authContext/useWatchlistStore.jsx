@@ -21,26 +21,30 @@ export const useWatchlistStore = create((set) => ({
 
   addToWatchlist: async (movieId, title, poster) => {
     try {
+       set({loading : true})
       const { data } = await axios.post(
         "http://localhost:4000/api/watchlist",
         { movieId, title, poster },
         { withCredentials: true }
       );
-      set({ watchList: data });
+      set({ watchList: data , loading : false });
     } catch (err) {
       console.error(err.response?.data?.msg || err.message);
+      set({loading : false})
     }
   },
 
   removeFromWatchlist: async (movieId) => {
     try {
+      set({loading : true})
       const { data } = await axios.delete(
         `http://localhost:4000/api/watchlist/${movieId}`,
         { withCredentials: true }
       );
-      set({ watchList: data });
+      set({ watchList: data , loading : false });
     } catch (err) {
       console.error(err);
+      set({loading : false})
     }
   }
 }));

@@ -14,6 +14,8 @@ const MovieDetail = () => {
     addToWatchlist,
     removeFromWatchlist,
     fetchWatchlist,
+    loading: watchlistLoading,
+
   } = useWatchlistStore();
 
   const {
@@ -21,6 +23,7 @@ const MovieDetail = () => {
     addToFavourite,
     removeFromFavourite,
     fetchFavourite,
+    loading: favouriteLoading,
   } = useFavouriteStore();
 
   const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
@@ -115,11 +118,13 @@ const MovieDetail = () => {
         <div className="flex-1 relative">
           {/* FAV STAR */}
           <Star
-            onClick={handleFavourite}
-            className="absolute top-0 right-0 cursor-pointer"
+            onClick={!favouriteLoading ? handleFavourite : undefined}
+            className={`absolute top-0 right-0 ${favouriteLoading ? "opacity-50" : "cursor-pointer"
+              }`}
             size={28}
             fill={inFavourite ? "yellow" : "transparent"}
           />
+
 
           <h1 className="text-4xl font-bold mb-2">{movie.title}</h1>
           <p className="italic text-gray-300 mb-4">{movie.tagline}</p>
@@ -142,14 +147,21 @@ const MovieDetail = () => {
 
             <button
               onClick={handleWatchlist}
-              className={`px-6 py-3 rounded-xl font-semibold transition cursor-pointer
-                ${inWatchlist
+              disabled={watchlistLoading}
+              className={`px-6 py-3 rounded-xl font-semibold transition
+    ${watchlistLoading ? "opacity-60 cursor-not-allowed" : "cursor-pointer"}
+    ${inWatchlist
                   ? "bg-green-500/20 text-green-400 border border-green-500/40"
                   : "bg-white/10 hover:bg-white/20"
                 }`}
             >
-              {inWatchlist ? "✓ In Watchlist" : "+ Add to Watchlist"}
+              {watchlistLoading
+                ? "Saving..."
+                : inWatchlist
+                  ? "✓ In Watchlist"
+                  : "+ Add to Watchlist"}
             </button>
+
           </div>
         </div>
       </div>

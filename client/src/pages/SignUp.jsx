@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import signUpbg from "../assets/signUpbg.jpg";
+import signUpbg from "../assets/SignUpbg.jpg";
+import { LoaderCircle } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import { AuthStore } from "../authContext/AuthStore";
 
 const SignUp = () => {
@@ -15,30 +15,31 @@ const SignUp = () => {
 
     const register = AuthStore((s) => s.register)
     const error = AuthStore((s) => s.error)
+    const loading = AuthStore((s) => s.loading)
 
 
     const handleSubmit = async (e) => {
-    e.preventDefault();
+        e.preventDefault();
 
-    if (!email.trim() || !password.trim()) {
-        setMessage("fill the fields ");
-        return;
-    }
-
-    try {
-        const res = await register({name, email, password });
-
-        if (!res?.success) {
-            setMessage(res?.message || "Signup failed ");
+        if (!email.trim() || !password.trim()) {
+            setMessage("fill the fields ");
             return;
         }
 
-        navigate("/");
-    } catch (err) {
-        console.log("SignUp error", err);
-        setMessage("Server error");
-    }
-};
+        try {
+            const res = await register({ name, email, password });
+
+            if (!res?.success) {
+                setMessage(res?.message || "Signup failed ");
+                return;
+            }
+
+            navigate("/");
+        } catch (err) {
+            console.log("SignUp error", err);
+            setMessage("Server error");
+        }
+    };
 
     return (
         <div className="flex items-center justify-center min-h-screen bg-gray-900">
@@ -95,8 +96,13 @@ const SignUp = () => {
                     )}
 
 
-                    <button onClick={handleSubmit} className="mt-2 bg-pink-500 hover:bg-pink-600 transition text-white font-semibold py-3 rounded-xl cursor-pointer">
-                        Sign Up
+                    <button
+                        onClick={!loading ? handleSubmit : undefined}
+                        disabled={loading}
+                        className={`mt-2 bg-pink-500 hover:bg-pink-600 transition text-white font-semibold py-3 rounded-xl 
+  ${loading ? "cursor-not-allowed animate-pulse" : "cursor-pointer"}`}
+                    >
+                        {loading ? <LoaderCircle className="mx-auto animate-spin" /> : "SignUp"}
                     </button>
 
                     <p className="text-gray-400 text-sm">

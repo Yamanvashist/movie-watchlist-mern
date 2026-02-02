@@ -5,7 +5,7 @@ import axios from "axios"
 
 export const AuthStore = create((set) => ({
     user: null,
-    loading: true,
+    loading: false,
     error: null,
 
     register: async ({ name, email, password }) => {

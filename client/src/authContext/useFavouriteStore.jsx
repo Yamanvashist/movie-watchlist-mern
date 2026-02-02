@@ -6,7 +6,7 @@ import axios from "axios";
 export const useFavouriteStore = create((set, get) => ({
 
     favourites: [],
-    loading: null,
+    loading: false,
 
     fetchFavourite: async () => {
         try {

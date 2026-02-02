@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import loginbg from "../assets/signUpbg.jpg";
+import { LoaderCircle } from 'lucide-react';
 import { useNavigate } from "react-router-dom";
 import { AuthStore } from "../authContext/AuthStore";
 
@@ -13,12 +14,13 @@ const Login = () => {
     const navigate = useNavigate()
     const login = AuthStore((s) => s.login)
     const error = AuthStore((s) => s.error)
+    const loading = AuthStore((s) => s.loading)
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         if (!email.trim() || !password.trim()) {
-            setMessage("Bro fill the fields");
+            setMessage("Fill the fields");
             return;
         }
 
@@ -86,10 +88,17 @@ const Login = () => {
                         </div>
                     )}
 
-
-                    <button onClick={handleSubmit} className="mt-2 bg-pink-500 hover:bg-pink-600 transition text-white font-semibold py-3 rounded-xl cursor-pointer">
-                        Login
+                    <button
+                        onClick={!loading ? handleSubmit : undefined}
+                        disabled={loading}
+                        className={`mt-2 bg-pink-500 hover:bg-pink-600 transition text-white font-semibold py-3 rounded-xl 
+  ${loading ? "cursor-not-allowed animate-pulse" : "cursor-pointer"}`}
+                    >
+                        {loading ? <LoaderCircle className="mx-auto animate-spin" /> : "Login"}
                     </button>
+
+
+
 
                     <p className="text-gray-400 text-sm">
                         Don't have any account?{" "}
