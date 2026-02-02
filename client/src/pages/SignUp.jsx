@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import signUpbg from "../assets/SignUpbg.jpg";
+import bg from "../assets/signup-bg.jpg"
 import { LoaderCircle } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { AuthStore } from "../authContext/AuthStore";
@@ -49,7 +49,7 @@ const SignUp = () => {
                 <div className="hidden md:block w-1/2 relative">
                     <div className="inset-0 bg-black/10 absolute"></div>
                     <img
-                        src={signUpbg}
+                        src={bg}
                         alt="signup visual"
                         className="w-full h-full object-cover"
                     />
