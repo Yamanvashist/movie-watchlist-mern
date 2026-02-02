@@ -4,6 +4,9 @@
 
 ---
 
+- **Harsh Raaz** – Backend & Deployment Support  
+  GitHub: https://github.com/Harsh-raaz
+
 ## Overview
 
 CineStack is a modern web app that lets you **search movies**, **add them to your watchlist**, and **mark favourites**. Built with **React, Zustand, Node.js, Express, and MongoDB**, it provides a sleek and responsive interface for movie lovers.
