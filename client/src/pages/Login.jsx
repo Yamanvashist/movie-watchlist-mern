@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import loginbg from "../assets/signUpbg.jpg";
+import loginbg from "../assets/signup-bg.jpg"
 import { LoaderCircle } from 'lucide-react';
 import { useNavigate } from "react-router-dom";
 import { AuthStore } from "../authContext/AuthStore";
